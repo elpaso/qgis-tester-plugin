@@ -1,3 +1,5 @@
+sudo: required
+dist: trusty
 language: python
 python:
   - "2.7"
@@ -9,7 +11,7 @@ install:
     - echo "deb-src http://qgis.org/debian $(lsb_release -cs) main" | sudo tee -a /etc/apt/sources.list
     - gpg --keyserver keyserver.ubuntu.com --recv 997D3880
     - gpg --export --armor 997D3880 | sudo apt-key add -
-    - sudo apt-get update -qq
+    - sudo apt-get update
     - sudo apt-get install python-qt4
     - sudo apt-get install qgis --force-yes
     - sudo apt-get install python-qgis
@@ -21,6 +23,6 @@ before_script:
 script:
     - python qgistester/unittests/test_TesterWidget.py
     - python qgistester/unittests/test_report.py
-    - PYTHONPATH=$PYTHONPATH:/usr/share/qgis/python/ python qgistester/unittests/test_ReportDialog.py
+    - python qgistester/unittests/test_ReportDialog.py
     - python qgistester/unittests/test_plugin.py
     #- pep8 qgistester/*.py
